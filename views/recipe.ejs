@@ -7,6 +7,23 @@
 <p><strong>Difficulty:</strong> <%= recipe.difficulty %></p>
 <p><strong>Cooking Time:</strong> <%= recipe.cooking_time %> mins</p>
 
+<!-- ⭐ Bookmark Button (Only if user logged in) -->
+<% if (user) { %>
+  <% if (recipe.isBookmarked) { %>
+    <form action="/bookmark/remove/<%= recipe.id %>" method="POST">
+      <button class="btn btn-secondary">★ Remove Bookmark</button>
+    </form>
+  <% } else { %>
+    <form action="/bookmark/add/<%= recipe.id %>" method="POST">
+      <button class="btn btn-primary">☆ Add Bookmark</button>
+    </form>
+  <% } %>
+<% } else { %>
+  <p><a href="/login">Login</a> to bookmark this recipe.</p>
+<% } %>
+
+<hr>
+
 <h3>Ingredients</h3>
 <ul>
   <% ingredients.forEach(i => { %>
@@ -27,5 +44,6 @@
 <a href="/">← Back to recipes</a>
 
 <%- include('partials/footer') %>
+
 
 
